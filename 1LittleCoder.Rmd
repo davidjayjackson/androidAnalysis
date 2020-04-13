@@ -1,0 +1,51 @@
+---
+title: "Fun with Android Stats"
+author: "David J Jackson"
+date: "4/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(jsonlite)
+library(patchwork)
+library(lubridate)
+```
+```{r}
+Pixel2XL <- fromJSON("./MyActivity.json") 
+Pixel2XL$time <- as.Date(Pixel2XL$time)
+```
+```{r}
+Px2 <- Pixel2XL %>% 
+  group_by(header) %>%  
+             summarise(Count=n())
+  
+```
+```{r}
+Px2 %>% filter(Count >=1 & Count <=12) %>%
+ggplot() +  geom_col(aes(x=Count,y=header))
+```
+```{r}
+Px2 %>% filter(Count >=13 & Count <=25) %>%
+ggplot() +  geom_col(aes(x=Count,y=header))
+```
+```{r}
+Px2 %>% filter(Count >=26 & Count <=49) %>%
+ggplot() +  geom_col(aes(x=Count,y=header))
+```
+```{r}
+Px2 %>% filter(Count >=50 & Count <=109) %>%
+ggplot() +  geom_col(aes(x=Count,y=header))
+```
+
+```{r}
+Px2 %>% filter(Count >=110 & Count <=218) %>%
+ggplot() +  geom_col(aes(x=Count,y=header)) 
+```
+```{r}
+Px2 %>% filter(Count >=219) %>%
+ggplot() +  geom_col(aes(x=Count,y=header))
+```
+
+
